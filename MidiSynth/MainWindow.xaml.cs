@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using NAudio.Midi;
+using Melanchall.DryWetMidi;
 
 namespace MidiSynth
 {
@@ -21,15 +22,64 @@ namespace MidiSynth
     /// </summary>
     public partial class MainWindow : Window
     {
-        MidiOut midiOut = new MidiOut(0);
-        uint playFlag = 3;
+        private MidiOut midiOut = new MidiOut(0);
+        private uint playFlag = 0;
+        private uint keyCount = 0;
+        private int selectedPatch = 0;
+        private bool recordFlag = false;
+        private Dictionary<string, int> noteMap = new Dictionary<string, int>() {
+            { "C4", 60 },
+            { "C4#D4b", 61 },
+            { "D4", 62 },
+            { "D4#E4b", 63 },
+            { "E4", 64 },
+            { "F4", 65 },
+            { "F4#G4b", 66 },
+            { "G4", 67 },
+            { "G4#A4b", 68 },
+            { "A4", 69 },
+            { "A4#B4b", 70 },
+            { "B4", 71 },
+            { "C5", 72 }
+        };
         public MainWindow()
         {
             InitializeComponent();
+            
         }
-        private void keyDownEventHandler(object sender, KeyEventArgs e)
+        private void RecordButtonClick(object sender, EventArgs e)
         {
-            if (playFlag < 1)
+            Button recordButton = (Button)sender;
+            if (recordFlag == false)
+            {
+                recordButton.Background = Brushes.Red;
+                recordFlag = true;
+            }
+            else
+            {
+                recordButton.Background = Brushes.White;
+                recordFlag = false;
+            }
+        }
+        private void PianoButtonClick(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            midiOut.Send(MidiMessage.StartNote(noteMap[clickedButton.Content.ToString()], 127, 1).RawData);
+            Thread.Sleep(200);
+            midiOut.Send(MidiMessage.StopNote(noteMap[clickedButton.Content.ToString()], 127, 1).RawData);
+        }
+        private void PatchSliderValueChanged(object sender, EventArgs e)
+        {
+            selectedPatch = Convert.ToInt32(patchSlider.Value);
+            midiOut.Send(MidiMessage.ChangePatch(selectedPatch, 1).RawData);
+        }
+        private void PreviewKeyDownEventHandler(object sender, KeyEventArgs e)
+        {
+            keyCount++;
+        }
+        private void KeyDownEventHandler(object sender, KeyEventArgs e)
+        {
+            if (playFlag < keyCount && recordFlag == false)
             {
                 switch (e.Key)
                 {
@@ -88,7 +138,7 @@ namespace MidiSynth
                 }
             }
         }
-        private void keyUpEventHandler(object sender, KeyEventArgs e)
+        private void KeyUpEventHandler(object sender, KeyEventArgs e)
         {
             midiOut.Send(MidiMessage.StopNote(60, 127, 1).RawData);
             midiOut.Send(MidiMessage.StopNote(61, 127, 1).RawData);
@@ -103,6 +153,7 @@ namespace MidiSynth
             midiOut.Send(MidiMessage.StopNote(70, 127, 1).RawData);
             midiOut.Send(MidiMessage.StopNote(71, 127, 1).RawData);
             midiOut.Send(MidiMessage.StopNote(72, 127, 1).RawData);
+            keyCount = 0;
             playFlag = 0;
         }
     }

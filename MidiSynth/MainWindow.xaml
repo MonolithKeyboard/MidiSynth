@@ -7,10 +7,29 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TabControl KeyDown="keyDownEventHandler" KeyUp="keyUpEventHandler">
+        <TabControl KeyDown="KeyDownEventHandler" PreviewKeyDown="PreviewKeyDownEventHandler" KeyUp="KeyUpEventHandler">
             <TabItem Header="Piano">
                 <Grid Background="#FFE5E5E5">
-                    <ComboBox HorizontalAlignment="Left" Margin="42,47,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Slider x:Name="patchSlider" ValueChanged="PatchSliderValueChanged" HorizontalAlignment="Left" Margin="137,24,0,0" VerticalAlignment="Top" Width="120" Maximum="127" SmallChange="1" TickPlacement="None" Value="-1"/>
+                    <Label Content="Выбор инструмента:" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.605,0.542"/>
+                    <Button Content="C4" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="47,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="#FFF9F9F9">
+                        <Button.Style>
+                            <Style/>
+                        </Button.Style>
+                    </Button>
+                    <Button Content="D4" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="117,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="White"/>
+                    <Button Content="C4#D4b" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="93,89,0,0" VerticalAlignment="Top" Height="114" Width="48" Background="#FF0C0000" Foreground="White"/>
+                    <Button Content="E4" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="187,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="White"/>
+                    <Button Content="D4#E4b" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="163,89,0,0" VerticalAlignment="Top" Height="114" Width="48" Background="#FF0C0000" Foreground="White"/>
+                    <Button Content="F4" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="257,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="White"/>
+                    <Button Content="G4" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="327,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="White"/>
+                    <Button Content="F4#G4b" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="303,89,0,0" VerticalAlignment="Top" Height="114" Width="48" Background="#FF0C0000" Foreground="White"/>
+                    <Button Content="A4" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="397,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="White"/>
+                    <Button Content="G4#A4b" Click="PianoButtonClick" HorizontalAlignment="Center" Margin="0,89,0,0" VerticalAlignment="Top" Height="114" Width="48" Background="#FF0C0000" Foreground="White"/>
+                    <Button Content="B4" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="467,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="White"/>
+                    <Button Content="A4#B4b" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="442,89,0,0" VerticalAlignment="Top" Height="114" Width="48" Background="#FF0C0000" Foreground="White"/>
+                    <Button Content="C5" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="537,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="White"/>
+                    <Button x:Name="RecordButton" Click ="RecordButtonClick" Content="Запись" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Height="24" Width="122" Background="White"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Player">
