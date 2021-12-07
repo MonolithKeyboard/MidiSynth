@@ -148,7 +148,6 @@ namespace MidiSynth
             }
             else if (playFlag == false && recordFlag == true)
             {
-                TestTextBox.Text = "";
                 stopwatch.Reset();
                 stopwatch.Start();
                 switch (e.Key)
@@ -156,8 +155,8 @@ namespace MidiSynth
                     case Key.Z: //C4
                         var msgStart = MidiMessage.StartNote(60, 127, 1).RawData;
                         midiOut.Send(msgStart);
+                        tmpArray = new int[3];
                         tmpArray[0] = msgStart;
-                        TestTextBox.Text += msgStart.ToString();
                         playFlag = true;
                         return;
                     case Key.S: //C4#|D4b
@@ -236,10 +235,6 @@ namespace MidiSynth
                 tmpArray[1] = (int)stopwatch.ElapsedMilliseconds;
                 tmpArray[2] = MidiMessage.StopNote(60, 127, 1).RawData;
                 midiOut.Send(MidiMessage.StopNote(60, 127, 1).RawData);
-                TestTextBox.Text += "\n";
-                TestTextBox.Text += stopwatch.ElapsedMilliseconds.ToString();
-                TestTextBox.Text += "\n";
-                TestTextBox.Text += MidiMessage.StopNote(60, 127, 1).RawData.ToString();
                 midiOut.Send(MidiMessage.StopNote(61, 127, 1).RawData);
                 midiOut.Send(MidiMessage.StopNote(62, 127, 1).RawData);
                 midiOut.Send(MidiMessage.StopNote(63, 127, 1).RawData);
@@ -253,8 +248,24 @@ namespace MidiSynth
                 midiOut.Send(MidiMessage.StopNote(71, 127, 1).RawData);
                 midiOut.Send(MidiMessage.StopNote(72, 127, 1).RawData);
                 playFlag = false;
-                notes.AddTupleToEnd(tmpArray);
+                notes.NoteLenghtTupleList.AddLast(tmpArray);
             }
+        }
+        private void OpenSerializedButtonClick(object sender, EventArgs e)
+        {
+            midiOut.Close();
+            midiOut.Dispose();
+            NoteLenghtTuples playNotes = new NoteLenghtTuples();
+            OpenFileDialog open = new OpenFileDialog();
+            open.Filter = "Serialize file(*.bin)|*.bin|Все файлы(*.*)|*.*";
+            open.ShowDialog();
+            FileStream stream = new FileStream(open.FileName, FileMode.Open);
+            BinaryFormatter bf = new BinaryFormatter();
+            playNotes = (NoteLenghtTuples)bf.Deserialize(stream);
+            stream.Close();
+            SoundPlayer player = new SoundPlayer();
+            player.PlayNotes(playNotes, 0);
+            midiOut = new MidiOut(0);
         }
     }
 }

@@ -14,10 +14,6 @@ namespace MidiSynth
         {
             NoteLenghtTupleList = new LinkedList<int[]>();
         }
-        public void AddTupleToEnd(int[] inputArray)
-        {
-            NoteLenghtTupleList.AddLast(inputArray);
-        }
         public void ClearList()
         {
             NoteLenghtTupleList.Clear();
