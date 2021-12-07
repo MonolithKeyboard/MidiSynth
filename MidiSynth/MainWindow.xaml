@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MidiSynth"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <TabControl KeyDown="KeyDownEventHandler" PreviewKeyDown="PreviewKeyDownEventHandler" KeyUp="KeyUpEventHandler">
-            <TabItem Header="Piano">
-                <Grid Background="#FFE5E5E5">
+        Title="MainWindow" Height="360" Width="640" MinWidth="640" MinHeight="360">
+    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="636" Margin="0,0,0,0">
+        <TabControl Margin="0,0,10,10">
+            <TabItem Header="Piano" KeyDown="KeyDownEventHandler" KeyUp="KeyUpEventHandler">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFE5E5E5" Height="300" Width="619">
                     <Slider x:Name="patchSlider" ValueChanged="PatchSliderValueChanged" HorizontalAlignment="Left" Margin="137,24,0,0" VerticalAlignment="Top" Width="120" Maximum="127" SmallChange="1" TickPlacement="None" Value="-1"/>
                     <Label Content="Выбор инструмента:" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.605,0.542"/>
                     <Button Content="C4" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="47,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="#FFF9F9F9">
@@ -25,15 +25,16 @@
                     <Button Content="G4" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="327,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="White"/>
                     <Button Content="F4#G4b" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="303,89,0,0" VerticalAlignment="Top" Height="114" Width="48" Background="#FF0C0000" Foreground="White"/>
                     <Button Content="A4" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="397,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="White"/>
-                    <Button Content="G4#A4b" Click="PianoButtonClick" HorizontalAlignment="Center" Margin="0,89,0,0" VerticalAlignment="Top" Height="114" Width="48" Background="#FF0C0000" Foreground="White"/>
+                    <Button Content="G4#A4b" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="372,89,0,0" VerticalAlignment="Top" Height="114" Width="48" Background="#FF0C0000" Foreground="White"/>
                     <Button Content="B4" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="467,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="White"/>
                     <Button Content="A4#B4b" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="442,89,0,0" VerticalAlignment="Top" Height="114" Width="48" Background="#FF0C0000" Foreground="White"/>
                     <Button Content="C5" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="537,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="White"/>
                     <Button x:Name="RecordButton" Click ="RecordButtonClick" Content="Запись" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Height="24" Width="122" Background="White"/>
+                    <TextBox x:Name="TestTextBox" HorizontalAlignment="Left" Margin="358,33,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="148" Height="29"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Player">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFE5E5E5" Height="300" Width="619"/>
             </TabItem>
         </TabControl>
     </Grid>

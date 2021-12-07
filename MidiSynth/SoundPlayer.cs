@@ -8,6 +8,7 @@ namespace MidiSynth
 {
     public class SoundPlayer
     {
+        public NoteLenghtTuples NotesForPlaying { get; private set; }
 
     }
 }
