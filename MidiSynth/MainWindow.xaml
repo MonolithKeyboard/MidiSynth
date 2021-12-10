@@ -30,11 +30,8 @@
                     <Button Content="A4#B4b" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="442,89,0,0" VerticalAlignment="Top" Height="114" Width="48" Background="#FF0C0000" Foreground="White"/>
                     <Button Content="C5" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="537,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="White"/>
                     <Button x:Name="RecordButton" Click ="RecordButtonClick" Content="Запись" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Height="24" Width="122" Background="White"/>
-                    <Button x:Name="OpenSerializedButton" Click="OpenSerializedButtonClick" Content="Open" HorizontalAlignment="Left" Margin="399,36,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="OpenSerializedButton" Click="OpenSerializedButtonClick" Content="Открыть и воспроизвести..." HorizontalAlignment="Left" Margin="378,55,0,0" VerticalAlignment="Top" Height="24" Width="165"/>
                 </Grid>
-            </TabItem>
-            <TabItem Header="Информация">
-                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFE5E5E5" Height="300" Width="619"/>
             </TabItem>
         </TabControl>
     </Grid>

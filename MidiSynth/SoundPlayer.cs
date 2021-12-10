@@ -19,11 +19,11 @@ namespace MidiSynth
                 throw new ArgumentOutOfRangeException("Некорректный номер инструмента");
             }
             midiOut = new MidiOut(0);
-            foreach(int[] arr in notes.NoteLenghtTupleList)
+            midiOut.Send(MidiMessage.ChangePatch(patch, 1).RawData);
+            foreach (int[] arr in notes.NoteLenghtTupleList)
             {
                 midiOut.Send(arr[0]);
                 Thread.Sleep(arr[1]);
-                midiOut.Send(arr[2]);
                 Thread.Sleep(100);
                 midiOut.Send(MidiMessage.StopNote(60, 127, 1).RawData);
                 midiOut.Send(MidiMessage.StopNote(61, 127, 1).RawData);

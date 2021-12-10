@@ -77,11 +77,12 @@ namespace MidiSynth
         {
             Button clickedButton = (Button)sender;
             midiOut.Send(MidiMessage.StartNote(noteMap[clickedButton.Content.ToString()], 127, 1).RawData);
-            Thread.Sleep(200);
+            Thread.Sleep(150);
             midiOut.Send(MidiMessage.StopNote(noteMap[clickedButton.Content.ToString()], 127, 1).RawData);
         }
         private void PatchSliderValueChanged(object sender, EventArgs e)
         {
+            //Выбор патча (инструмента)
             selectedPatch = Convert.ToInt32(patchSlider.Value);
             midiOut.Send(MidiMessage.ChangePatch(selectedPatch, 1).RawData);
         }
@@ -247,43 +248,35 @@ namespace MidiSynth
                 }
             }
         }
+        public void StopAllNotes()
+        {
+            midiOut.Send(MidiMessage.StopNote(60, 127, 1).RawData);
+            midiOut.Send(MidiMessage.StopNote(61, 127, 1).RawData);
+            midiOut.Send(MidiMessage.StopNote(62, 127, 1).RawData);
+            midiOut.Send(MidiMessage.StopNote(63, 127, 1).RawData);
+            midiOut.Send(MidiMessage.StopNote(64, 127, 1).RawData);
+            midiOut.Send(MidiMessage.StopNote(65, 127, 1).RawData);
+            midiOut.Send(MidiMessage.StopNote(66, 127, 1).RawData);
+            midiOut.Send(MidiMessage.StopNote(67, 127, 1).RawData);
+            midiOut.Send(MidiMessage.StopNote(68, 127, 1).RawData);
+            midiOut.Send(MidiMessage.StopNote(69, 127, 1).RawData);
+            midiOut.Send(MidiMessage.StopNote(70, 127, 1).RawData);
+            midiOut.Send(MidiMessage.StopNote(71, 127, 1).RawData);
+            midiOut.Send(MidiMessage.StopNote(72, 127, 1).RawData);
+        }
         private void KeyUpEventHandler(object sender, KeyEventArgs e)
         {
             if (recordFlag == false)
             {
-                midiOut.Send(MidiMessage.StopNote(60, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(61, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(62, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(63, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(64, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(65, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(66, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(67, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(68, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(69, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(70, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(71, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(72, 127, 1).RawData);
+                StopAllNotes();
                 playFlag = false;
             }
             else if (recordFlag == true)
             {
                 stopwatch.Stop();
-                tmpArray[1] = (int)stopwatch.ElapsedMilliseconds;
-                tmpArray[2] = MidiMessage.StopNote(60, 127, 1).RawData;
-                midiOut.Send(MidiMessage.StopNote(60, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(61, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(62, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(63, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(64, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(65, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(66, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(67, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(68, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(69, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(70, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(71, 127, 1).RawData);
-                midiOut.Send(MidiMessage.StopNote(72, 127, 1).RawData);
+                tmpArray[1] = (int)stopwatch.ElapsedMilliseconds + 250;
+                tmpArray[2] = selectedPatch;
+                StopAllNotes();
                 playFlag = false;
                 notes.NoteLenghtTupleList.AddLast(tmpArray);
             }
@@ -301,7 +294,7 @@ namespace MidiSynth
             playNotes = (NoteLenghtTuples)bf.Deserialize(stream);
             stream.Close();
             SoundPlayer player = new SoundPlayer();
-            player.PlayNotes(playNotes, 0);
+            player.PlayNotes(playNotes, selectedPatch);
             midiOut = new MidiOut(0);
         }
     }
