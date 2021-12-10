@@ -66,7 +66,7 @@ namespace MidiSynth
                 recordFlag = false;
                 SaveFileDialog save = new SaveFileDialog();
                 save.Filter = "Serialize file(*.bin)|*.bin|Все файлы(*.*)|*.*";
-                save.ShowDialog();
+                if (save.ShowDialog() != true) { return; }
                 FileStream stream = new FileStream(save.FileName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
                 BinaryFormatter bf = new BinaryFormatter();
                 bf.Serialize(stream, notes);
@@ -150,61 +150,98 @@ namespace MidiSynth
             {
                 stopwatch.Reset();
                 stopwatch.Start();
+                int msgStart;
                 switch (e.Key)
                 {
                     case Key.Z: //C4
-                        var msgStart = MidiMessage.StartNote(60, 127, 1).RawData;
+                        msgStart = MidiMessage.StartNote(60, 127, 1).RawData;
                         midiOut.Send(msgStart);
                         tmpArray = new int[3];
                         tmpArray[0] = msgStart;
                         playFlag = true;
                         return;
                     case Key.S: //C4#|D4b
-                        midiOut.Send(MidiMessage.StartNote(61, 127, 1).RawData);
+                        msgStart = MidiMessage.StartNote(61, 127, 1).RawData;
+                        midiOut.Send(msgStart);
+                        tmpArray = new int[3];
+                        tmpArray[0] = msgStart;
                         playFlag = true;
                         return;
                     case Key.X: //D4
-                        midiOut.Send(MidiMessage.StartNote(62, 127, 1).RawData);
+                        msgStart = MidiMessage.StartNote(62, 127, 1).RawData;
+                        midiOut.Send(msgStart);
+                        tmpArray = new int[3];
+                        tmpArray[0] = msgStart;
                         playFlag = true;
                         return;
                     case Key.D: //D4#|E4b
-                        midiOut.Send(MidiMessage.StartNote(63, 127, 1).RawData);
+                        msgStart = MidiMessage.StartNote(63, 127, 1).RawData;
+                        midiOut.Send(msgStart);
+                        tmpArray = new int[3];
+                        tmpArray[0] = msgStart;
                         playFlag = true;
                         return;
                     case Key.C:  //E4
-                        midiOut.Send(MidiMessage.StartNote(64, 127, 1).RawData);
+                        msgStart = MidiMessage.StartNote(64, 127, 1).RawData;
+                        midiOut.Send(msgStart);
+                        tmpArray = new int[3];
+                        tmpArray[0] = msgStart;
                         playFlag = true;
                         return;
                     case Key.V: //F4
-                        midiOut.Send(MidiMessage.StartNote(65, 127, 1).RawData);
+                        msgStart = MidiMessage.StartNote(65, 127, 1).RawData;
+                        midiOut.Send(msgStart);
+                        tmpArray = new int[3];
+                        tmpArray[0] = msgStart;
                         playFlag = true;
                         return;
                     case Key.G: //F4#|G4b
-                        midiOut.Send(MidiMessage.StartNote(66, 127, 1).RawData);
+                        msgStart = MidiMessage.StartNote(66, 127, 1).RawData;
+                        midiOut.Send(msgStart);
+                        tmpArray = new int[3];
+                        tmpArray[0] = msgStart;
                         playFlag = true;
                         return;
                     case Key.B: //G4
-                        midiOut.Send(MidiMessage.StartNote(67, 127, 1).RawData);
+                        msgStart = MidiMessage.StartNote(67, 127, 1).RawData;
+                        midiOut.Send(msgStart);
+                        tmpArray = new int[3];
+                        tmpArray[0] = msgStart;
                         playFlag = true;
                         return;
                     case Key.H: //G4#|A4b
-                        midiOut.Send(MidiMessage.StartNote(68, 127, 1).RawData);
+                        msgStart = MidiMessage.StartNote(68, 127, 1).RawData;
+                        midiOut.Send(msgStart);
+                        tmpArray = new int[3];
+                        tmpArray[0] = msgStart;
                         playFlag = true;
                         return;
                     case Key.N: //A4
-                        midiOut.Send(MidiMessage.StartNote(69, 127, 1).RawData);
+                        msgStart = MidiMessage.StartNote(69, 127, 1).RawData;
+                        midiOut.Send(msgStart);
+                        tmpArray = new int[3];
+                        tmpArray[0] = msgStart;
                         playFlag = true;
                         return;
                     case Key.J: //A4#|B4b
-                        midiOut.Send(MidiMessage.StartNote(70, 127, 1).RawData);
+                        msgStart = MidiMessage.StartNote(70, 127, 1).RawData;
+                        midiOut.Send(msgStart);
+                        tmpArray = new int[3];
+                        tmpArray[0] = msgStart;
                         playFlag = true;
                         return;
                     case Key.M: //B4
-                        midiOut.Send(MidiMessage.StartNote(71, 127, 1).RawData);
+                        msgStart = MidiMessage.StartNote(71, 127, 1).RawData;
+                        midiOut.Send(msgStart);
+                        tmpArray = new int[3];
+                        tmpArray[0] = msgStart;
                         playFlag = true;
                         return;
                     case Key.OemComma: //C5
-                        midiOut.Send(MidiMessage.StartNote(72, 127, 1).RawData);
+                        msgStart = MidiMessage.StartNote(72, 127, 1).RawData;
+                        midiOut.Send(msgStart);
+                        tmpArray = new int[3];
+                        tmpArray[0] = msgStart;
                         playFlag = true;
                         return;
                 }
@@ -258,7 +295,7 @@ namespace MidiSynth
             NoteLenghtTuples playNotes = new NoteLenghtTuples();
             OpenFileDialog open = new OpenFileDialog();
             open.Filter = "Serialize file(*.bin)|*.bin|Все файлы(*.*)|*.*";
-            open.ShowDialog();
+            if (open.ShowDialog() != true) { return; }
             FileStream stream = new FileStream(open.FileName, FileMode.Open);
             BinaryFormatter bf = new BinaryFormatter();
             playNotes = (NoteLenghtTuples)bf.Deserialize(stream);

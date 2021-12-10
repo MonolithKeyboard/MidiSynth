@@ -25,6 +25,19 @@ namespace MidiSynth
                 Thread.Sleep(arr[1]);
                 midiOut.Send(arr[2]);
                 Thread.Sleep(100);
+                midiOut.Send(MidiMessage.StopNote(60, 127, 1).RawData);
+                midiOut.Send(MidiMessage.StopNote(61, 127, 1).RawData);
+                midiOut.Send(MidiMessage.StopNote(62, 127, 1).RawData);
+                midiOut.Send(MidiMessage.StopNote(63, 127, 1).RawData);
+                midiOut.Send(MidiMessage.StopNote(64, 127, 1).RawData);
+                midiOut.Send(MidiMessage.StopNote(65, 127, 1).RawData);
+                midiOut.Send(MidiMessage.StopNote(66, 127, 1).RawData);
+                midiOut.Send(MidiMessage.StopNote(67, 127, 1).RawData);
+                midiOut.Send(MidiMessage.StopNote(68, 127, 1).RawData);
+                midiOut.Send(MidiMessage.StopNote(69, 127, 1).RawData);
+                midiOut.Send(MidiMessage.StopNote(70, 127, 1).RawData);
+                midiOut.Send(MidiMessage.StopNote(71, 127, 1).RawData);
+                midiOut.Send(MidiMessage.StopNote(72, 127, 1).RawData);
             }
             midiOut.Close();
             midiOut.Dispose();
