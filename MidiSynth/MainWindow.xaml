@@ -1,16 +1,16 @@
-﻿<Window x:Class="MidiSynth.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MidiSynth"
+        xmlns:System="clr-namespace:System;assembly=System.Runtime" x:Class="MidiSynth.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="360" Width="640" MinWidth="640" MinHeight="360">
     <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Width="636" Margin="0,0,0,0">
         <TabControl Margin="0,0,10,10">
             <TabItem Header="Клавиши" KeyDown="KeyDownEventHandler" KeyUp="KeyUpEventHandler">
                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFE5E5E5" Height="300" Width="619">
-                    <Slider x:Name="patchSlider" ValueChanged="PatchSliderValueChanged" HorizontalAlignment="Left" Margin="137,24,0,0" VerticalAlignment="Top" Width="120" Maximum="127" SmallChange="1" TickPlacement="None" Value="-1"/>
                     <Label Content="Выбор инструмента:" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.605,0.542"/>
                     <Button Content="C4" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="47,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="#FFF9F9F9">
                         <Button.Style>
@@ -31,6 +31,13 @@
                     <Button Content="C5" Click="PianoButtonClick" HorizontalAlignment="Left" Margin="537,89,0,0" VerticalAlignment="Top" Height="200" Width="70" Background="White"/>
                     <Button x:Name="RecordButton" Click ="RecordButtonClick" Content="Запись" HorizontalAlignment="Left" Margin="10,51,0,0" VerticalAlignment="Top" Height="24" Width="122" Background="White"/>
                     <Button x:Name="OpenSerializedButton" Click="OpenSerializedButtonClick" Content="Открыть и воспроизвести..." HorizontalAlignment="Left" Margin="378,55,0,0" VerticalAlignment="Top" Height="24" Width="165"/>
+                    <ComboBox x:Name="PatchComboBox" SelectionChanged="PatchComboBoxSelected" HorizontalAlignment="Left" Margin="137,22,0,0" VerticalAlignment="Top" Width="120">
+                        <System:String>Пианино</System:String>
+                        <System:String>Электропианино</System:String>
+                        <System:String>Ксилофон</System:String>
+                        <System:String>Гитара</System:String>
+                        <System:String>Бас</System:String>
+                    </ComboBox>
                 </Grid>
             </TabItem>
         </TabControl>

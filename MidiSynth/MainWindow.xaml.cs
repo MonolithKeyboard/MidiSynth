@@ -33,7 +33,8 @@ namespace MidiSynth
         private int selectedPatch = 0;
         private bool recordFlag = false;
         private Stopwatch stopwatch = new Stopwatch();
-        private Dictionary<string, int> noteMap = new Dictionary<string, int>() {
+        private Dictionary<string, int> noteMap = new Dictionary<string, int>() 
+        {
             { "C4", 60 },
             { "C4#D4b", 61 },
             { "D4", 62 },
@@ -47,6 +48,14 @@ namespace MidiSynth
             { "A4#B4b", 70 },
             { "B4", 71 },
             { "C5", 72 }
+        };
+        private Dictionary<string, int> patchMap = new Dictionary<string, int>()
+        {
+            {"Пианино", 0},
+            {"Электропианино", 4},
+            {"Ксилофон", 13},
+            {"Гитара", 24},
+            {"Бас", 32}
         };
         public MainWindow()
         {
@@ -80,13 +89,11 @@ namespace MidiSynth
             Thread.Sleep(150);
             midiOut.Send(MidiMessage.StopNote(noteMap[clickedButton.Content.ToString()], 127, 1).RawData);
         }
-        private void PatchSliderValueChanged(object sender, EventArgs e)
+        private void PatchComboBoxSelected(object sender, EventArgs e)
         {
-            //Выбор патча (инструмента)
-            selectedPatch = Convert.ToInt32(patchSlider.Value);
+            selectedPatch = patchMap[PatchComboBox.SelectedItem.ToString()];
             midiOut.Send(MidiMessage.ChangePatch(selectedPatch, 1).RawData);
         }
-   
         private void KeyDownEventHandler(object sender, KeyEventArgs e)
         {
             if (playFlag == false && recordFlag == false)
